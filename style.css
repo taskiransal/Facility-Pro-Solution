@@ -1,0 +1,425 @@
+:root {
+  --bg: #020d17;
+  --bg-card: #08182a;
+  --line: #14344f;
+  --accent: #0ea5ef;
+  --accent-strong: #38bdf8;
+  --text: #f2f7fb;
+  --muted: #a9c0d3;
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  box-sizing: border-box;
+  color-scheme: dark;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+*, *::before, *::after { box-sizing: inherit; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+main { flex: 1; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--accent-strong); }
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.wrap { width: calc(100% - 2.5rem); max-width: 1080px; margin-left: auto; margin-right: auto; }
+
+/* Header */
+.site-header {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 10;
+  background: rgba(2, 13, 23, .94);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-bottom: 2px solid var(--accent);
+}
+.site-header .wrap {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; min-height: 68px;
+}
+.brand { display: flex; align-items: center; gap: .65rem; text-decoration: none; color: var(--text); }
+.brand img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; }
+.brand span { display: block; font-size: .78rem; font-weight: 800; letter-spacing: .02em; line-height: 1.15; }
+.brand span b { display: block; color: var(--accent); font-weight: 800; }
+.site-nav ul { display: flex; gap: 1.6rem; list-style: none; margin: 0; padding: 0; }
+.site-nav a {
+  display: inline-block; color: var(--text); text-decoration: none;
+  font-size: .82rem; font-weight: 600; padding: .35rem 0;
+  border-bottom: 2px solid transparent;
+}
+.site-nav a:hover { color: var(--accent-strong); }
+.site-nav a[aria-current="page"] { color: var(--accent-strong); border-bottom-color: var(--accent-strong); }
+
+/* Buttons */
+.btn {
+  display: inline-block; background: var(--accent); color: #02121e;
+  font-weight: 700; font-size: .95rem; padding: .85rem 1.6rem;
+  border-radius: 8px; text-decoration: none; border: 0; cursor: pointer;
+  transition: background .15s, transform .15s;
+}
+.btn:hover { background: var(--accent-strong); }
+.btn:active { transform: translateY(1px); }
+.btn.ghost { background: transparent; color: var(--accent-strong); border: 1px solid var(--accent); }
+.btn.ghost:hover { background: rgba(14,165,239,.12); }
+.btn-row { display: flex; flex-wrap: wrap; gap: .8rem; }
+
+/* Startseite */
+.hero { padding: clamp(3rem, 8vw, 6rem) 0 clamp(3.5rem, 9vw, 7rem); }
+.hero .wrap { display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: center; }
+.eyebrow { margin: 0 0 .5rem; font-size: .75rem; font-weight: 700; color: var(--accent); letter-spacing: .04em; }
+h1 { margin: 0 0 1.4rem; font-size: clamp(2.6rem, 6.4vw, 4.2rem); line-height: 1.05; font-weight: 800; letter-spacing: -.02em; }
+h1 .hl { color: var(--accent-strong); display: block; }
+.lead { max-width: 30rem; margin: 0 0 1.7rem; color: var(--muted); font-size: 1.02rem; }
+.hero-logo {
+  width: clamp(230px, 34vw, 420px);
+  border-radius: 22px;
+  border: 2px solid #0f6aa6;
+  box-shadow: 0 0 0 1px #071a2b, 0 20px 50px -20px rgba(14,165,239,.45);
+}
+
+/* Unterseiten */
+.page { padding: clamp(2.5rem, 7vw, 4.5rem) 0 clamp(3.5rem, 9vw, 6rem); }
+h2 { margin: 0 0 .5rem; font-size: clamp(1.9rem, 4.4vw, 2.5rem); line-height: 1.15; font-weight: 800; letter-spacing: -.01em; }
+.sub { margin: 0 0 2.4rem; color: var(--muted); }
+
+/* Leistungen */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.7rem 1.6rem 1.9rem;
+}
+.card h3 { margin: 0 0 .9rem; color: var(--accent); font-size: 1.15rem; font-weight: 700; line-height: 1.3; }
+.card p { margin: 0 0 1.1rem; color: var(--muted); font-size: .95rem; }
+.card ul { margin: 0; padding-left: 1.1rem; }
+.card li { margin-bottom: .35rem; font-size: .93rem; font-weight: 600; }
+.card li::marker { color: var(--accent-strong); }
+.page-cta { margin-top: 2.6rem; }
+
+/* Über uns */
+.about-grid { display: grid; grid-template-columns: minmax(0, 520px) minmax(0, 1fr); gap: 3.5rem; align-items: center; }
+.flyer-box { margin: 0; }
+.zoom { display: block; cursor: zoom-in; border-radius: 6px; }
+.flyer-box figcaption { margin-top: .7rem; color: var(--muted); font-size: .85rem; }
+.flyer { width: 100%; aspect-ratio: 1179 / 1769; object-fit: cover; object-position: bottom; border-radius: 6px; border: 1px solid var(--line); box-shadow: 0 16px 40px -18px rgba(0,0,0,.8); }
+.about-text p { max-width: 34rem; margin: 0 0 1rem; color: var(--muted); }
+.about-text p.closing { color: var(--text); }
+.about-text p strong { color: var(--accent-strong); }
+
+/* Kontakt */
+.contact-box {
+  background: var(--bg-card); border: 1px solid var(--line); border-radius: 12px;
+  padding: 1.8rem;
+}
+.contact-box dl { margin: 0 0 1.6rem; display: grid; grid-template-columns: max-content 1fr; gap: .7rem 1rem; }
+.contact-box dt { font-weight: 700; }
+.contact-box dd { margin: 0; overflow-wrap: anywhere; }
+
+/* Impressum */
+.legal { max-width: 40rem; color: var(--muted); }
+.legal h3 { margin: 1.8rem 0 .4rem; color: var(--text); font-size: 1.05rem; }
+.legal p { margin: 0 0 .7rem; }
+
+/* Footer */
+.site-footer { border-top: 1px solid var(--line); padding: 1.6rem 0; color: var(--muted); font-size: .82rem; }
+.site-footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem 1.5rem; }
+.site-footer a { color: var(--muted); }
+.site-footer a:hover { color: var(--accent-strong); }
+
+/* Mobil */
+@media (max-width: 860px) {
+  .cards { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .flyer-box { max-width: 520px; }
+}
+@media (max-width: 620px) {
+  .site-header .wrap { flex-wrap: wrap; padding-block: .5rem; }
+  .site-nav ul { gap: 1.1rem; flex-wrap: wrap; }
+  .hero .wrap { grid-template-columns: 1fr; gap: 2rem; }
+  .hero-logo { order: -1; width: min(72vw, 300px); }
+  .about-grid { grid-template-columns: 1fr; }
+  .contact-box dl { grid-template-columns: 1fr; gap: .1rem; }
+  .contact-box dd { margin-bottom: .7rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* Kontaktformular */
+.contact-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 1.5rem; align-items: start; }
+.mail-form {
+  background: var(--bg-card); border: 1px solid var(--line); border-radius: 12px;
+  padding: 1.8rem;
+}
+.mail-form h3 { margin: 0 0 .3rem; color: var(--accent); font-size: 1.15rem; font-weight: 700; }
+.mail-form .hint { margin: 0 0 1.4rem; color: var(--muted); font-size: .9rem; }
+.field { margin-bottom: 1rem; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; }
+.field label { display: block; margin-bottom: .35rem; font-size: .88rem; font-weight: 600; }
+.field input, .field select, .field textarea {
+  width: 100%; font: inherit; font-size: 1rem; color: var(--text);
+  background: #041220; border: 1px solid var(--line); border-radius: 8px;
+  padding: .7rem .85rem;
+}
+.field textarea { min-height: 150px; resize: vertical; }
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(14,165,239,.28);
+}
+.field input::placeholder, .field textarea::placeholder { color: #5f7a92; }
+.form-note { margin: .9rem 0 0; color: var(--muted); font-size: .8rem; }
+@media (max-width: 860px) {
+  .contact-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 620px) {
+  .field-row { grid-template-columns: 1fr; }
+}
+
+/* Seitenübergänge: diagonaler Wisch in Cyan/Navy mit Logo (wie die Pinselstriche auf dem Flyer) */
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+main > * { animation: page-in .55s cubic-bezier(.22, .61, .36, 1) backwards; }
+html.pt-cover main > * { animation-delay: .4s; }
+
+.site-nav a { transition: color .2s ease, border-color .2s ease; }
+.site-nav a:not([aria-current]):hover { border-bottom-color: rgba(56, 189, 248, .55); }
+
+.pt { position: fixed; inset: 0; z-index: 1000; overflow: hidden; pointer-events: none; visibility: hidden; }
+.pt-panel {
+  position: absolute; top: -10%; bottom: -10%; left: -30vw; width: 160vw;
+  transform: translateX(-100%) skewX(-16deg);
+  background:
+    radial-gradient(520px 380px at 50% 50%, rgba(14, 165, 239, .22), transparent 70%),
+    repeating-linear-gradient(118deg, rgba(56, 189, 248, .05) 0 1px, transparent 1px 54px),
+    linear-gradient(135deg, #04182b 0%, #020d17 60%, #020a12 100%);
+}
+.pt-edge {
+  position: absolute; top: 0; bottom: 0; width: 22px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+  box-shadow: 0 0 46px 8px rgba(14, 165, 239, .55);
+}
+.pt-edge::after { content: ""; position: absolute; top: 0; bottom: 0; width: 6px; background: #d8f1ff; opacity: .85; }
+.pt-edge-r { right: -22px; }
+.pt-edge-r::after { left: -16px; }
+.pt-edge-l { left: -22px; }
+.pt-edge-l::after { right: -16px; }
+
+.pt-mark { position: absolute; left: 50%; top: 50%; width: clamp(130px, 20vw, 190px); aspect-ratio: 1; transform: translate(-50%, -50%); opacity: 0; }
+.pt-logo { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; box-shadow: 0 0 60px rgba(14, 165, 239, .45); }
+.pt-ring {
+  position: absolute; inset: -14px; border-radius: 50%;
+  border: 3px solid transparent; border-top-color: var(--accent-strong); border-right-color: rgba(56, 189, 248, .35);
+  animation: pt-spin .9s linear infinite;
+}
+
+@keyframes pt-cover  { from { transform: translateX(-100%) skewX(-16deg); } to { transform: translateX(0) skewX(-16deg); } }
+@keyframes pt-reveal { from { transform: translateX(0) skewX(-16deg); } to { transform: translateX(100%) skewX(-16deg); } }
+@keyframes pt-mark-in  { from { opacity: 0; transform: translate(-50%, -50%) scale(.7); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+@keyframes pt-mark-out { from { opacity: 1; transform: translate(-50%, -50%) scale(1); } to { opacity: 0; transform: translate(-50%, -50%) scale(1.18); } }
+@keyframes pt-spin { to { transform: rotate(360deg); } }
+
+/* Beim Verlassen: Wisch deckt die Seite zu, Logo erscheint */
+html.pt-leaving .pt { visibility: visible; }
+html.pt-leaving .pt-panel { animation: pt-cover .48s cubic-bezier(.75, 0, .25, 1) forwards; }
+html.pt-leaving .pt-mark { animation: pt-mark-in .32s .28s cubic-bezier(.2, .8, .2, 1) forwards; }
+
+/* Auf der neuen Seite: erst zugedeckt, dann Wisch nach rechts weg */
+html.pt-cover .pt { visibility: visible; }
+html.pt-cover .pt-panel { transform: translateX(0) skewX(-16deg); }
+html.pt-cover .pt-mark { opacity: 1; }
+html.pt-cover.pt-reveal .pt-panel { animation: pt-reveal .58s cubic-bezier(.75, 0, .25, 1) forwards; }
+html.pt-cover.pt-reveal .pt-mark { animation: pt-mark-out .3s ease forwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  main > *, html.pt-cover main > * { animation: none; }
+  .site-nav a { transition: none; }
+  .pt { display: none; }
+}
+
+/* Hintergrund: dunkles Navy mit blauem Lichtschein und feinen Diagonalen (wie auf dem Flyer) */
+body::before {
+  content: "";
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(1000px 640px at 88% -8%, rgba(14, 165, 239, .20), transparent 62%),
+    radial-gradient(900px 700px at 0% 108%, rgba(20, 90, 190, .26), transparent 60%),
+    radial-gradient(760px 520px at 50% 48%, rgba(10, 40, 80, .32), transparent 70%),
+    linear-gradient(180deg, #020d17 0%, #03111e 55%, #020b14 100%);
+}
+body::after {
+  content: "";
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    repeating-linear-gradient(118deg, rgba(56, 189, 248, .045) 0 1px, transparent 1px 54px),
+    linear-gradient(118deg, transparent 30%, rgba(56, 189, 248, .055) 42%, transparent 54%),
+    linear-gradient(118deg, transparent 60%, rgba(14, 165, 239, .04) 68%, transparent 76%);
+  -webkit-mask-image: linear-gradient(200deg, #000 0%, rgba(0, 0, 0, .35) 55%, transparent 92%);
+  mask-image: linear-gradient(200deg, #000 0%, rgba(0, 0, 0, .35) 55%, transparent 92%);
+}
+
+.site-header { background: rgba(2, 13, 23, .8); }
+.site-footer { background: rgba(2, 10, 18, .55); }
+
+/* Leuchten hinter dem Logo auf der Startseite */
+.hero { position: relative; isolation: isolate; overflow: hidden; }
+.hero::before {
+  content: "";
+  position: absolute; z-index: -1; pointer-events: none;
+  right: -4%; top: 50%; transform: translateY(-50%);
+  width: min(780px, 92vw); aspect-ratio: 1;
+  background: radial-gradient(closest-side, rgba(14, 165, 239, .24), rgba(14, 165, 239, .07) 55%, transparent 74%);
+}
+@media (max-width: 620px) {
+  .hero::before { right: 50%; transform: translate(50%, -60%); top: 30%; }
+}
+
+/* Karten: feiner Verlauf statt flacher Fläche */
+.card, .contact-box, .mail-form {
+  background: linear-gradient(160deg, rgba(12, 32, 56, .92) 0%, rgba(6, 19, 34, .94) 100%);
+  box-shadow: 0 18px 40px -26px rgba(0, 0, 0, .9), inset 0 1px 0 rgba(120, 200, 255, .06);
+}
+
+/* Rahmen um den Seiteninhalt (jede Seite): Farbverlauf-Kante, die das Licht aus dem Hintergrund aufgreift */
+main {
+  --gutter: clamp(10px, 3.4vw, 46px);
+  --frame-gap: clamp(12px, 2.4vw, 32px);
+  position: relative;
+  width: calc(100% - 2 * var(--gutter));
+  margin: var(--frame-gap) auto;
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(2, 10, 18, .28);
+  box-shadow:
+    0 0 60px -14px rgba(14, 165, 239, .30),
+    inset 0 0 90px -50px rgba(14, 165, 239, .22);
+}
+main::before {                       /* Kante des Rahmens (Grundvariante für alle Browser) */
+  content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  border-radius: inherit; border: 2px solid rgba(56, 189, 248, .55);
+}
+@supports ((-webkit-mask-composite: xor) or (mask-composite: exclude)) {
+  main::before {                     /* Verlaufs-Kante, die das Licht aus dem Hintergrund aufgreift */
+    border: 0; padding: 2px;
+    background: linear-gradient(45deg,
+      rgba(56, 189, 248, .95) 0%, rgba(14, 165, 239, .24) 30%,
+      rgba(14, 165, 239, .18) 70%, rgba(56, 189, 248, .95) 100%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  }
+}
+main::after {                        /* feine Innenlinie */
+  content: ""; position: absolute; inset: 9px; z-index: 3; pointer-events: none;
+  border: 1px solid rgba(56, 189, 248, .10); border-radius: 12px;
+}
+main .wrap { width: calc(100% - clamp(2rem, 6vw, 4rem)); }
+
+@media (max-width: 620px) {
+  main { border-radius: 14px; }
+  main::after { inset: 6px; border-radius: 9px; }
+}
+
+/* ===== Handy-Optimierung ===== */
+:root { padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-area-inset-right, 0px); }
+body { min-height: 100vh; min-height: 100dvh; }
+
+/* Schließen-Knopf der Flyer-Ansicht */
+.lightbox-close {
+  position: fixed; top: calc(env(safe-area-inset-top, 0px) + 12px); right: 12px; z-index: 2;
+  width: 46px; height: 46px; border-radius: 50%; cursor: pointer;
+  border: 1px solid rgba(56, 189, 248, .6); background: rgba(2, 13, 23, .88);
+  color: #fff; font-size: 1.7rem; line-height: 1;
+}
+
+/* Touch-Geräte: große Tippflächen */
+@media (pointer: coarse) {
+  .contact-box dd a { display: inline-block; padding: .5rem 0; }
+  .contact-box dd { margin-bottom: .2rem; }
+  .site-footer a { display: inline-block; padding: .7rem .3rem; }
+}
+
+@media (max-width: 620px) {
+  /* Menü: eine Zeile mit vier gleich breiten, 46 px hohen Tippflächen; scrollt mit */
+  .site-header { position: static; }
+  .site-header .wrap { gap: .1rem; padding-block: .5rem 0; }
+  .brand img { width: 42px; height: 42px; }
+  .brand span { font-size: .85rem; }
+  .site-nav { width: 100%; }
+  .site-nav ul { justify-content: space-between; gap: 0; flex-wrap: nowrap; }
+  .site-nav a { display: flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 .3rem; font-size: clamp(.8rem, 3.7vw, .92rem); white-space: nowrap; }
+  .eyebrow { font-size: .82rem; }
+
+  /* Startseite: Überschrift passt, Buttons oben sichtbar */
+  .hero { padding: 1.4rem 0 2.2rem; }
+  .hero .wrap { gap: 1.4rem; }
+  .hero-logo { width: min(50vw, 200px); border-radius: 18px; }
+  h1 { font-size: clamp(2.2rem, 11.5vw, 3rem); margin-bottom: 1rem; }
+  .lead { font-size: 1rem; margin-bottom: 1.3rem; }
+
+  /* Buttons: volle Breite, gut antippbar */
+  .btn { display: block; width: 100%; padding: 1rem 1.2rem; font-size: 1rem; text-align: center; }
+  .btn-row { flex-direction: column; }
+
+  .page { padding: 1.8rem 0 2.6rem; }
+  .sub { margin-bottom: 1.6rem; }
+  .card { padding: 1.4rem 1.3rem 1.5rem; }
+  .contact-box, .mail-form { padding: 1.4rem 1.3rem; }
+  .form-note { font-size: .85rem; }
+
+  /* Flyer-Ansicht: Vollbild, verschiebbar und zoombar */
+  dialog.lightbox { width: 100vw; height: 100dvh; max-width: none; max-height: none; overflow: auto; }
+  dialog.lightbox[open] { display: grid; }
+  dialog.lightbox img {
+    width: 100vw; max-width: none; max-height: none; margin: auto; border-radius: 0;
+    aspect-ratio: 1179 / 1769; object-fit: cover; object-position: bottom; cursor: zoom-in;
+  }
+  dialog.lightbox.is-zoomed img { width: 240vw; cursor: zoom-out; }
+}
+@media (max-width: 360px) {
+  .brand span { font-size: .8rem; }
+}
+@media (max-width: 340px) {
+  .site-nav ul { display: grid; grid-template-columns: 1fr 1fr; }
+  .site-nav a { font-size: .9rem; }
+}
+button.btn { font-family: inherit; }
+
+/* ===== Stabilität auf echten Handys ===== */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; -webkit-tap-highlight-color: rgba(56, 189, 248, .18); }
+a, button, .btn { touch-action: manipulation; }
+
+/* Ältere Browser ohne <dialog>: geschlossene Ansicht nie anzeigen */
+dialog:not([open]) { display: none; }
+
+/* Wisch nur während der Animation im Speicher halten */
+html.pt-leaving .pt-panel, html.pt-cover .pt-panel { will-change: transform; }
+
+/* Notausgang: bleibt die Seite aus irgendeinem Grund zugedeckt (z. B. Skript nicht geladen), verschwindet der Wisch nach 3,5 s */
+@keyframes pt-failsafe { to { visibility: hidden; } }
+html.pt-cover .pt, html.pt-leaving .pt { animation: pt-failsafe 0s 3.5s forwards; }
+
+@media (max-width: 620px) {
+  /* Hintergrund scrollt mit statt fest zu stehen (ruhiger und schneller auf dem Handy) */
+  body { position: relative; }
+  body::before, body::after { position: absolute; }
+  .site-header { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(2, 13, 23, .96); }
+  main { box-shadow: 0 0 34px -14px rgba(14, 165, 239, .3); }
+
+  /* Kürzerer, leichterer Wisch */
+  html.pt-leaving .pt-panel { animation-duration: .36s; }
+  html.pt-leaving .pt-mark { animation-delay: .2s; }
+  html.pt-cover.pt-reveal .pt-panel { animation-duration: .42s; }
+}

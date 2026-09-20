@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<script>
+  // Kam der Besucher per Seitenwechsel-Wisch? Dann Seite zunächst zugedeckt lassen.
+  (function () {
+    var wisch = false;
+    try { wisch = sessionStorage.getItem("pt") === "1"; sessionStorage.removeItem("pt"); } catch (e) {}
+    try { if (window.name === "pt") { wisch = true; window.name = ""; } } catch (e) {}
+    if (wisch) document.documentElement.classList.add("pt-cover");
+  })();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Über uns – Facility Pro Solution</title>
+<meta name="description" content="Neu gegründetes Unternehmen mit frischen Ideen: persönlicher, zuverlässiger und flexibler Service.">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#020d17">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="pt" aria-hidden="true">
+  <div class="pt-panel"><i class="pt-edge pt-edge-r"></i><i class="pt-edge pt-edge-l"></i></div>
+  <div class="pt-mark"><span class="pt-ring"></span><img class="pt-logo" src="logo.jpg" alt=""></div>
+</div>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Facility Pro Solution – Startseite">
+      <img src="logo.jpg" alt="">
+      <span>FACILITY <b>PRO SOLUTION</b></span>
+    </a>
+    <nav class="site-nav" aria-label="Hauptnavigation">
+      <ul>
+        <li><a href="leistungen.html">Leistungen</a></li>
+        <li><a href="ueber-uns.html" aria-current="page">Über uns</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+        <li><a href="impressum.html">Impressum</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="page">
+    <div class="wrap about-grid">
+      <figure class="flyer-box">
+        <a class="zoom" href="flyer.jpg" aria-label="Flyer in voller Größe ansehen">
+          <img class="flyer" src="flyer.jpg" alt="Flyer von Facility Pro Solution mit Leistungsübersicht und Kontaktdaten" width="520" height="780">
+        </a>
+        <figcaption>Zum Vergrößern anklicken</figcaption>
+      </figure>
+      <div class="about-text">
+        <h2>Über uns</h2>
+        <p>Wir sind ein neu gegründetes Unternehmen mit frischen Ideen, vollem Einsatz und Leidenschaft für unsere Arbeit.</p>
+        <p>Unser Ziel ist es, unseren Kunden einen persönlichen, zuverlässigen und flexiblen Service zu bieten. Wir legen Wert auf saubere Arbeit, verbindliche Termine und Lösungen, die zu Ihrem Objekt passen.</p>
+        <p class="closing"><strong>Facility Pro Solution</strong> – Ihr zuverlässiger Partner rund ums Haus.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 Facility Pro Solution · Bremerhaven</span>
+    <a href="impressum.html">Impressum</a>
+  </div>
+</footer>
+
+
+<dialog class="lightbox" id="flyer-dialog" aria-label="Flyer in voller Größe">
+  <button class="lightbox-close" type="button" aria-label="Schließen">&times;</button>
+  <img src="flyer.jpg" alt="Flyer von Facility Pro Solution in voller Größe">
+</dialog>
+
+<script>
+  (function () {
+    var dlg = document.getElementById("flyer-dialog");
+    var link = document.querySelector(".zoom");
+    if (!dlg || !link || typeof dlg.showModal !== "function") return;
+    var phone = window.matchMedia("(max-width: 620px)");
+
+    function mittig() {
+      dlg.scrollTop = 0;
+      dlg.scrollLeft = Math.max(0, (dlg.scrollWidth - dlg.clientWidth) / 2);
+    }
+
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      dlg.showModal();
+      mittig();
+    });
+
+    dlg.addEventListener("click", function (e) {
+      if (e.target.closest(".lightbox-close")) { dlg.close(); return; }
+      // Handy: Tippen auf den Flyer wechselt zwischen "ganz" und "groß lesen"
+      if (phone.matches && e.target.tagName === "IMG") {
+        dlg.classList.toggle("is-zoomed");
+        mittig();
+        return;
+      }
+      dlg.close(); // Desktop: Klick irgendwo schließt (Esc geht auch)
+    });
+
+    dlg.addEventListener("close", function () { dlg.classList.remove("is-zoomed"); });
+  })();
+</script>
+<script src="transitions.js" defer></script>
+</body>
+</html>

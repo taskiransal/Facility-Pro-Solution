@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<script>
+  // Kam der Besucher per Seitenwechsel-Wisch? Dann Seite zunächst zugedeckt lassen.
+  (function () {
+    var wisch = false;
+    try { wisch = sessionStorage.getItem("pt") === "1"; sessionStorage.removeItem("pt"); } catch (e) {}
+    try { if (window.name === "pt") { wisch = true; window.name = ""; } } catch (e) {}
+    if (wisch) document.documentElement.classList.add("pt-cover");
+  })();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Leistungen – Facility Pro Solution</title>
+<meta name="description" content="Gebäudereinigung, Bodenverlegung sowie Hausmeister- und Montagearbeiten in Bremerhaven.">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#020d17">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="pt" aria-hidden="true">
+  <div class="pt-panel"><i class="pt-edge pt-edge-r"></i><i class="pt-edge pt-edge-l"></i></div>
+  <div class="pt-mark"><span class="pt-ring"></span><img class="pt-logo" src="logo.jpg" alt=""></div>
+</div>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Facility Pro Solution – Startseite">
+      <img src="logo.jpg" alt="">
+      <span>FACILITY <b>PRO SOLUTION</b></span>
+    </a>
+    <nav class="site-nav" aria-label="Hauptnavigation">
+      <ul>
+        <li><a href="leistungen.html" aria-current="page">Leistungen</a></li>
+        <li><a href="ueber-uns.html">Über uns</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+        <li><a href="impressum.html">Impressum</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="page">
+    <div class="wrap">
+      <h2>Unsere Leistungen</h2>
+      <p class="sub">Wir bieten praktische und zuverlässige Lösungen rund um Ihr Objekt.</p>
+      <div class="cards">
+        <article class="card">
+          <h3>Gebäudereinigung</h3>
+          <p>Saubere und gepflegte Räume für private und gewerbliche Kunden.</p>
+          <ul>
+            <li>Wohnungen</li>
+            <li>Büros &amp; Geschäftsräume</li>
+            <li>Treppenhäuser</li>
+            <li>Arztpraxen &amp; Kanzleien</li>
+            <li>Gemeinschaftsflächen</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Bodenverlegung</h3>
+          <p>Saubere Bodenarbeiten für unterschiedliche Räume und Anforderungen.</p>
+          <ul>
+            <li>Laminat</li>
+            <li>Vinyl</li>
+            <li>Teppichboden</li>
+            <li>PVC</li>
+            <li>Weitere Bodenbelagsarbeiten</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Hausmeister &amp; Montage</h3>
+          <p>Unterstützung bei kleineren Arbeiten rund um Haus und Wohnung.</p>
+          <ul>
+            <li>Küchenmontage</li>
+            <li>Schrankmontage</li>
+            <li>Montagearbeiten</li>
+            <li>Hausmeistertätigkeiten</li>
+            <li>Instandhaltungsarbeiten</li>
+          </ul>
+        </article>
+      </div>
+      <div class="page-cta"><a class="btn" href="kontakt.html">Jetzt Anfrage senden</a></div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 Facility Pro Solution · Bremerhaven</span>
+    <a href="impressum.html">Impressum</a>
+  </div>
+</footer>
+
+<script src="transitions.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<script>
+  // Kam der Besucher per Seitenwechsel-Wisch? Dann Seite zunächst zugedeckt lassen.
+  (function () {
+    var wisch = false;
+    try { wisch = sessionStorage.getItem("pt") === "1"; sessionStorage.removeItem("pt"); } catch (e) {}
+    try { if (window.name === "pt") { wisch = true; window.name = ""; } } catch (e) {}
+    if (wisch) document.documentElement.classList.add("pt-cover");
+  })();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kontakt – Facility Pro Solution</title>
+<meta name="description" content="Kontakt zu Facility Pro Solution in Bremerhaven: Telefon, E-Mail, Adresse und Anfrageformular.">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#020d17">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="pt" aria-hidden="true">
+  <div class="pt-panel"><i class="pt-edge pt-edge-r"></i><i class="pt-edge pt-edge-l"></i></div>
+  <div class="pt-mark"><span class="pt-ring"></span><img class="pt-logo" src="logo.jpg" alt=""></div>
+</div>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Facility Pro Solution – Startseite">
+      <img src="logo.jpg" alt="">
+      <span>FACILITY <b>PRO SOLUTION</b></span>
+    </a>
+    <nav class="site-nav" aria-label="Hauptnavigation">
+      <ul>
+        <li><a href="leistungen.html">Leistungen</a></li>
+        <li><a href="ueber-uns.html">Über uns</a></li>
+        <li><a href="kontakt.html" aria-current="page">Kontakt</a></li>
+        <li><a href="impressum.html">Impressum</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="page">
+    <div class="wrap">
+      <h2>Kontakt</h2>
+      <p class="sub">Rufen Sie an oder schreiben Sie uns – wir melden uns schnellstmöglich.</p>
+
+      <div class="contact-grid">
+        <div class="contact-box">
+          <dl>
+            <dt>Telefon:</dt><dd><a href="tel:+491746395289">0174 / 6395289</a></dd>
+            <dt>Telefon:</dt><dd><a href="tel:+4915562445312">0155 / 62445312</a></dd>
+            <dt>E-Mail:</dt><dd><a href="mailto:facility.pro.solution@gmx.de">facility.pro.solution@gmx.de</a></dd>
+            <dt>Adresse:</dt><dd>Krummenacker 4<br>27572 Bremerhaven</dd>
+          </dl>
+          <a class="btn" href="tel:+491746395289">Jetzt anrufen</a>
+        </div>
+
+        <form class="mail-form" id="mail-form" novalidate>
+          <h3>Nachricht schreiben</h3>
+          <p class="hint">Schildern Sie uns kurz Ihr Anliegen – wir melden uns bei Ihnen.</p>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" autocomplete="name" required placeholder="Ihr Name">
+            </div>
+            <div class="field">
+              <label for="telefon">Telefon (optional)</label>
+              <input type="tel" id="telefon" name="telefon" autocomplete="tel" placeholder="Für Rückrufe">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="email">Ihre E-Mail-Adresse</label>
+            <input type="email" id="email" name="email" autocomplete="email" required placeholder="name@beispiel.de">
+          </div>
+
+          <div class="field">
+            <label for="anliegen">Anliegen</label>
+            <select id="anliegen" name="anliegen">
+              <option>Gebäudereinigung</option>
+              <option>Bodenverlegung</option>
+              <option>Hausmeister &amp; Montage</option>
+              <option>Sonstiges</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="nachricht">Ihre Nachricht</label>
+            <textarea id="nachricht" name="nachricht" required placeholder="Zum Beispiel: Objekt, Ort, gewünschter Termin …"></textarea>
+          </div>
+
+          <!-- Spam-Schutz: für Menschen unsichtbar -->
+          <input type="checkbox" name="botcheck" id="botcheck" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+
+          <div class="btn-row">
+            <button class="btn" type="submit" id="send-btn">Nachricht senden</button>
+            <button class="btn ghost" type="button" id="wa-btn">Per WhatsApp senden</button>
+          </div>
+          <p class="form-note" id="form-note" role="status" aria-live="polite">Mit dem Absenden werden Ihre Angaben zur Bearbeitung Ihrer Anfrage an uns übermittelt.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 Facility Pro Solution · Bremerhaven</span>
+    <a href="impressum.html">Impressum</a>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var form = document.getElementById("mail-form");
+    var note = document.getElementById("form-note");
+    var btn = document.getElementById("send-btn");
+    var waBtn = document.getElementById("wa-btn");
+    var fName = document.getElementById("name");
+    var fTel = document.getElementById("telefon");
+    var fMail = document.getElementById("email");
+    var fAnliegen = document.getElementById("anliegen");
+    var fText = document.getElementById("nachricht");
+    var fBot = document.getElementById("botcheck");
+
+    var EMPFAENGER = "facility.pro.solution@gmx.de";
+    var WHATSAPP_NR = "491746395289";   // 0174 / 6395289 im internationalen Format, ohne + und Leerzeichen
+    // Hier den Access Key von web3forms.com eintragen (siehe Anleitung):
+    var ACCESS_KEY = "c3d9b78a-d6b1-4172-944a-4a8da38988bf";
+
+    function showNote(text) { note.textContent = text; }
+
+    function mailtoFallback(betreff, text) {
+      window.location.href = "mailto:" + EMPFAENGER +
+        "?subject=" + encodeURIComponent(betreff) +
+        "&body=" + encodeURIComponent(text);
+      showNote("Ihr E-Mail-Programm wurde geöffnet. Falls nichts passiert, nutzen Sie „Per WhatsApp senden“ oder schreiben Sie direkt an " + EMPFAENGER + ".");
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      var name = fName.value.trim();
+      var email = fMail.value.trim();
+      var telefon = fTel.value.trim();
+      var anliegen = fAnliegen.value;
+      var nachricht = fText.value.trim();
+
+      if (!name) { showNote("Bitte geben Sie Ihren Namen ein."); fName.focus(); return; }
+      if (!email || !fMail.validity.valid) { showNote("Bitte geben Sie eine gültige E-Mail-Adresse ein."); fMail.focus(); return; }
+      if (!nachricht) { showNote("Bitte schreiben Sie eine Nachricht."); fText.focus(); return; }
+      if (fBot.checked) return; // Spam
+
+      var betreff = "Anfrage: " + anliegen;
+
+      // Solange noch kein Access Key eingetragen ist: E-Mail-Programm öffnen
+      if (ACCESS_KEY === "DEIN_ACCESS_KEY") {
+        var zeilen = ["Guten Tag,", "", nachricht, "", "Mit freundlichen Grüßen", name, "E-Mail: " + email];
+        if (telefon) zeilen.push("Telefon: " + telefon);
+        mailtoFallback(betreff, zeilen.join("\r\n"));
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = "Wird gesendet …";
+
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          access_key: ACCESS_KEY,
+          subject: betreff,
+          from_name: "Webseite Facility Pro Solution",
+          name: name,
+          email: email,
+          phone: telefon,
+          anliegen: anliegen,
+          message: nachricht
+        })
+      })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data.success) {
+          form.reset();
+          showNote("Vielen Dank! Ihre Nachricht wurde gesendet. Wir melden uns schnellstmöglich bei Ihnen.");
+        } else {
+          throw new Error(data.message || "Fehler");
+        }
+      })
+      .catch(function () {
+        showNote("Das Senden hat leider nicht geklappt. Nutzen Sie „Per WhatsApp senden“, rufen Sie uns an oder schreiben Sie direkt an " + EMPFAENGER + ".");
+      })
+      .then(function () {
+        btn.disabled = false;
+        btn.textContent = "Nachricht senden";
+      });
+    });
+
+    // WhatsApp: öffnet die App (oder WhatsApp Web) mit fertigem Text; Absenden macht der Besucher selbst
+    waBtn.addEventListener("click", function () {
+      var name = fName.value.trim();
+      var telefon = fTel.value.trim();
+      var nachricht = fText.value.trim();
+      if (!name) { showNote("Bitte geben Sie Ihren Namen ein."); fName.focus(); return; }
+      if (!nachricht) { showNote("Bitte schreiben Sie eine Nachricht."); fText.focus(); return; }
+
+      var zeilen = ["Guten Tag, Anfrage: " + fAnliegen.value, "", nachricht, "", "Viele Grüße", name];
+      if (telefon) zeilen.push("Telefon: " + telefon);
+      var url = "https://wa.me/" + WHATSAPP_NR + "?text=" + encodeURIComponent(zeilen.join("\n"));
+      var a = document.createElement("a");   // Link-Klick statt window.open: wird von Handys nicht blockiert
+      a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer";
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      showNote("WhatsApp wurde geöffnet. Bitte dort noch auf Senden tippen.");
+    });
+  })();
+</script>
+
+<script src="transitions.js" defer></script>
+</body>
+</html>
