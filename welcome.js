@@ -1,21 +1,32 @@
-/* Willkommens-Bildschirm: "Herzlich willkommen" + Sound, einmal pro Besuch (Sitzung).
-   Browser erlauben Ton erst nach einem Tipp/Klick – deshalb gibt es den Knopf "Mit Ton eintreten".
-   Ohne Tipp schließt sich der Bildschirm nach 5 Sekunden von selbst (ohne Ton). */
+/* Willkommens-Bildschirm + Sound. Alles läuft von selbst – niemand muss etwas drücken.
+   - Der Bildschirm "Herzlich willkommen" erscheint einmal pro Besuch und schließt sich nach ~3 Sekunden.
+   - Der Sound wird sofort automatisch versucht. Browser (Chrome, Opera, Edge, Safari, Firefox) erlauben Ton beim ersten
+     Öffnen einer fremden Seite aber nur, wenn der Besucher sie schon einmal berührt hat oder es für die Seite erlaubt hat.
+     Darum gilt zusätzlich: Klappt es nicht sofort, startet der Ton beim ersten Tippen/Klicken/Tastendruck auf der Seite
+     (in den ersten 15 Sekunden). Tippt der Besucher zuerst auf einen Menülink, wird der Ton auf der nächsten Seite
+     automatisch versucht – dort erlauben die Browser ihn in der Regel. */
 (function () {
   var html = document.documentElement;
   var overlay = document.querySelector(".wl");
-  if (!overlay || !html.classList.contains("wl-show")) return;
+  var showWelcome = !!overlay && html.classList.contains("wl-show");
+
+  // Wurde auf der Vorseite zuerst ein Link angetippt? Dann Ton jetzt automatisch versuchen.
+  var pending = false;
+  try {
+    pending = sessionStorage.getItem("wl-pending") === "1";
+    if (pending) sessionStorage.removeItem("wl-pending");
+  } catch (e) {}
+
+  if (!showWelcome && !pending) return;
 
   var AUDIO_SRC = "willkommen.mp3";
-  var VOLUME = 0.55;          // Der Sound ist laut aufgenommen – bewusst leiser abgespielt
-  var AUTO_CLOSE_MS = 5000;   // passt zu wl-bar in style.css
-  var CLOSE_AFTER_TAP_MS = 1500;
+  var VOLUME = 0.55;              // Der Sound ist laut aufgenommen – bewusst leiser abgespielt
+  var AUTO_CLOSE_MS = 2800;       // passt zu wl-bar in style.css
+  var CLOSE_AFTER_TAP_MS = 800;   // Tipp auf den Bildschirm: kurz danach schließen
+  var ARM_WINDOW_MS = 15000;      // so lange wartet der Ton auf die erste Berührung
 
-  var soundBtn = overlay.querySelector(".wl-sound");
-  var skipBtn = overlay.querySelector(".wl-skip");
-  var audio = null, closed = false, timer = null, toggle = null;
-
-  overlay.setAttribute("aria-hidden", "false");
+  var GESTURES = ["pointerdown", "pointerup", "touchend", "click", "keydown"];
+  var audio = null, closed = false, played = false, timer = null, toggle = null;
 
   function getAudio() {
     if (!audio) {
@@ -45,54 +56,68 @@
     document.body.appendChild(toggle);
   }
 
-  function playSound() {
+  function disarm() {
+    GESTURES.forEach(function (ev) { document.removeEventListener(ev, onGesture, true); });
+  }
+
+  function started() {
+    played = true; disarm(); makeToggle();
+    if (overlay) overlay.classList.add("wl-playing");   // Ton läuft: Hinweis "zum Tippen" ausblenden
+  }
+
+  // Erste Berührung: Ton starten (muss direkt im Ereignis passieren, sonst blockt der Browser)
+  function onGesture(e) {
+    if (played) return;
+    if (e.type === "keydown" && e.key === "Escape") return;
+    // Tipp auf einen Seitenlink: Seite wechselt gleich – Ton dann auf der nächsten Seite automatisch versuchen
+    if (e.target && e.target.closest && e.target.closest("a[href]")) {
+      try { sessionStorage.setItem("wl-pending", "1"); } catch (err) {}
+      return;
+    }
     var a = getAudio();
-    a.currentTime = 0;
+    try { a.currentTime = 0; } catch (err) {}
     var p = a.play();
     if (p && typeof p.then === "function") {
-      p.then(makeToggle).catch(function () { /* vom Browser blockiert */ });
+      p.then(started).catch(function () { /* nächste Berührung probiert es erneut */ });
     } else {
-      makeToggle();
+      started();
     }
   }
 
-  function close() {
-    if (closed) return;
-    closed = true;
-    clearTimeout(timer);
-    document.removeEventListener("keydown", onKey);
-    html.classList.add("wl-closing");
-    setTimeout(function () {
-      html.classList.remove("wl-show", "wl-closing");
-      overlay.setAttribute("aria-hidden", "true");
-    }, 600);
+  // ---- Willkommens-Bildschirm (nur beim ersten Besuch)
+  if (showWelcome) {
+    overlay.classList.add("wl-ready");   // schaltet den Notausgang aus style.css ab
+    overlay.setAttribute("aria-hidden", "false");
+
+    var close = function () {
+      if (closed) return;
+      closed = true;
+      clearTimeout(timer);
+      html.classList.add("wl-closing");
+      setTimeout(function () {
+        html.classList.remove("wl-show", "wl-closing");
+        overlay.setAttribute("aria-hidden", "true");
+      }, 600);
+    };
+
+    // schließt sich von selbst; ein Tipp darauf schließt etwas früher
+    timer = setTimeout(close, AUTO_CLOSE_MS);
+    overlay.addEventListener("click", function () {
+      if (closed) return;
+      clearTimeout(timer);
+      timer = setTimeout(close, CLOSE_AFTER_TAP_MS);
+    });
   }
 
-  function onKey(e) { if (e.key === "Escape") close(); }
-  document.addEventListener("keydown", onKey);
-
-  soundBtn.addEventListener("click", function () {
-    clearTimeout(timer);
-    overlay.classList.add("wl-hold");   // Zeitbalken ausblenden
-    playSound();                        // muss direkt im Klick passieren, sonst blockt der Browser
-    timer = setTimeout(close, CLOSE_AFTER_TAP_MS);
-  });
-  skipBtn.addEventListener("click", close);
-
-  timer = setTimeout(close, AUTO_CLOSE_MS);
-
-  // Manche Browser erlauben Ton sofort (z. B. wenn die Seite oft besucht wurde) – dann direkt abspielen
+  // ---- Ton: 1) sofort automatisch versuchen, 2) sonst auf die erste Berührung warten
+  GESTURES.forEach(function (ev) { document.addEventListener(ev, onGesture, true); });
+  setTimeout(disarm, ARM_WINDOW_MS);
   try {
     var p = getAudio().play();
     if (p && typeof p.then === "function") {
-      p.then(function () {
-        makeToggle();
-        soundBtn.hidden = true;
-        skipBtn.textContent = "Weiter zur Seite";
-      }).catch(function () { /* normal: erst nach Tipp erlaubt */ });
+      p.then(started).catch(function () { /* normal: wartet auf die erste Berührung */ });
+    } else {
+      started();
     }
   } catch (err) {}
-
-  // Tastatur-Nutzer: Fokus auf den Ton-Knopf (auf dem Handy nicht nötig, sonst stört der Fokus-Rahmen)
-  if (!window.matchMedia("(pointer: coarse)").matches) { try { soundBtn.focus({ preventScroll: true }); } catch (err) {} }
 })();
