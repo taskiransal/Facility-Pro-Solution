@@ -11,6 +11,15 @@
     if (wisch) document.documentElement.classList.add("pt-cover");
   })();
 </script>
+<script>
+  // Erster Besuch in dieser Sitzung? Dann Willkommens-Bildschirm zeigen (nicht nach einem Seitenwechsel-Wisch).
+  try {
+    if (!sessionStorage.getItem("wl")) {
+      sessionStorage.setItem("wl", "1");
+      if (!document.documentElement.classList.contains("pt-cover")) document.documentElement.classList.add("wl-show");
+    }
+  } catch (e) {}
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Über uns – Facility Pro Solution</title>
 <meta name="description" content="Neu gegründetes Unternehmen mit frischen Ideen: persönlicher, zuverlässiger und flexibler Service.">
@@ -22,6 +31,19 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<div class="wl" role="dialog" aria-modal="true" aria-label="Willkommen">
+  <div class="wl-box">
+    <img class="wl-logo" src="logo.jpg" alt="" width="210" height="210">
+    <h2>Herzlich <span>willkommen</span></h2>
+    <p>bei <b>Facility Pro Solution</b><br>Sauber. Zuverlässig. Flexibel.</p>
+    <div class="btn-row wl-actions">
+      <button class="btn wl-sound" type="button">Mit Ton eintreten</button>
+      <button class="btn ghost wl-skip" type="button">Ohne Ton eintreten</button>
+    </div>
+  </div>
+  <i class="wl-bar"></i>
+</div>
 
 <div class="pt" aria-hidden="true">
   <div class="pt-panel"><i class="pt-edge pt-edge-r"></i><i class="pt-edge pt-edge-l"></i></div>
@@ -109,6 +131,7 @@
     dlg.addEventListener("close", function () { dlg.classList.remove("is-zoomed"); });
   })();
 </script>
+<script src="welcome.js" defer></script>
 <script src="transitions.js" defer></script>
 </body>
 </html>
