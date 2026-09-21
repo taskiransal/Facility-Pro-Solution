@@ -16,26 +16,102 @@
   try {
     if (!sessionStorage.getItem("wl")) {
       sessionStorage.setItem("wl", "1");
-      if (!document.documentElement.classList.contains("pt-cover")) document.documentElement.classList.add("wl-show");
+      // Kein Willkommens-Bildschirm für Besucher direkt aus der Suche und für Suchmaschinen-Roboter (Google mag keine Vorschaltseiten)
+      var host = (document.referrer || "").replace(/^https?:\/\//, "").split("/")[0];
+      var ausSuche = /(^|\.)(google|bing|duckduckgo|ecosia|yahoo|startpage|qwant)\./i.test(host);
+      var roboter = /bot|crawl|spider|lighthouse|pagespeed/i.test(navigator.userAgent);
+      if (!ausSuche && !roboter && !document.documentElement.classList.contains("pt-cover")) document.documentElement.classList.add("wl-show");
     }
   } catch (e) {}
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Facility Pro Solution – Gebäudereinigung, Bodenverlegung &amp; Hausmeisterservice in Bremerhaven</title>
-<meta name="description" content="Facility Pro Solution: Gebäudereinigung, Bodenverlegung sowie Hausmeister- und Montagearbeiten in Bremerhaven und Umgebung.">
+<title>Facility Pro Solution – Gebäudereinigung &amp; Hausmeister in Bremerhaven</title>
+<meta name="description" content="Facility Pro Solution in Bremerhaven: Gebäudereinigung, Bodenverlegung sowie Hausmeister- und Montagearbeiten. Sauber, zuverlässig, flexibel.">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#020d17">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Facility Pro Solution">
+<meta property="og:title" content="Facility Pro Solution – Gebäudereinigung &amp; Hausmeister in Bremerhaven">
+<meta property="og:description" content="Facility Pro Solution in Bremerhaven: Gebäudereinigung, Bodenverlegung sowie Hausmeister- und Montagearbeiten. Sauber, zuverlässig, flexibel.">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Facility Pro Solution",
+  "slogan": "Sauber. Zuverlässig. Flexibel.",
+  "description": "Facility Pro Solution: Gebäudereinigung, Bodenverlegung sowie Hausmeister- und Montagearbeiten in Bremerhaven und Umgebung.",
+  "telephone": "+49 174 6395289",
+  "email": "facility.pro.solution@gmx.de",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Krummenacker 4",
+    "postalCode": "27572",
+    "addressLocality": "Bremerhaven",
+    "addressCountry": "DE"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Bremerhaven"
+  },
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": "+49 174 6395289",
+      "contactType": "customer service",
+      "availableLanguage": "German"
+    },
+    {
+      "@type": "ContactPoint",
+      "telephone": "+49 155 62445312",
+      "contactType": "customer service",
+      "availableLanguage": "German"
+    }
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Leistungen",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Gebäudereinigung"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Bodenverlegung"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Hausmeister- und Montagearbeiten"
+        }
+      }
+    ]
+  }
+}
+</script>
 </head>
 <body>
 
 <div class="wl" role="dialog" aria-modal="true" aria-label="Willkommen">
   <div class="wl-box">
-    <img class="wl-logo" src="logo.jpg" alt="" width="210" height="210">
-    <h2>Herzlich <span>willkommen</span></h2>
+    <img class="wl-logo" src="logo-512.jpg" alt="" width="210" height="210">
+    <div class="wl-title">Herzlich <span>willkommen</span></div>
     <p>bei <b>Facility Pro Solution</b><br>Sauber. Zuverlässig. Flexibel.</p>
     <p class="wl-hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>Für den Ton einmal tippen oder klicken</p>
   </div>
@@ -44,13 +120,13 @@
 
 <div class="pt" aria-hidden="true">
   <div class="pt-panel"><i class="pt-edge pt-edge-r"></i><i class="pt-edge pt-edge-l"></i></div>
-  <div class="pt-mark"><span class="pt-ring"></span><img class="pt-logo" src="logo.jpg" alt=""></div>
+  <div class="pt-mark"><span class="pt-ring"></span><img class="pt-logo" src="logo-512.jpg" alt=""></div>
 </div>
 
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="index.html" aria-label="Facility Pro Solution – Startseite">
-      <img src="logo.jpg" alt="">
+      <img src="logo-512.jpg" alt="">
       <span>FACILITY <b>PRO SOLUTION</b></span>
     </a>
     <nav class="site-nav" aria-label="Hauptnavigation">
@@ -68,15 +144,14 @@
   <div class="hero">
     <div class="wrap">
       <div>
-        <p class="eyebrow">FACILITY PRO SOLUTION</p>
-        <h1>Sauber. <span class="hl">Zuverlässig.</span> Flexibel.</h1>
+        <h1><span class="eyebrow">Facility Pro Solution · Bremerhaven</span>Sauber. <span class="hl">Zuverlässig.</span> Flexibel.</h1>
         <p class="lead">Ihr zuverlässiger Partner für Gebäudereinigung, Bodenverlegung sowie Hausmeister- und Montagearbeiten in Bremerhaven und Umgebung.</p>
         <div class="btn-row">
           <a class="btn" href="kontakt.html">Jetzt Anfrage senden</a>
           <a class="btn ghost" href="leistungen.html">Unsere Leistungen</a>
         </div>
       </div>
-      <img class="hero-logo" src="logo.jpg" alt="Logo Facility Pro Solution – Sauber. Zuverlässig. Flexibel." width="420" height="420">
+      <img class="hero-logo" src="logo.jpg" fetchpriority="high" decoding="async" alt="Logo Facility Pro Solution – Sauber. Zuverlässig. Flexibel." width="420" height="420">
     </div>
   </div>
 </main>
