@@ -16,15 +16,28 @@
   try {
     if (!sessionStorage.getItem("wl")) {
       sessionStorage.setItem("wl", "1");
-      if (!document.documentElement.classList.contains("pt-cover")) document.documentElement.classList.add("wl-show");
+      // Kein Willkommens-Bildschirm für Besucher direkt aus der Suche und für Suchmaschinen-Roboter (Google mag keine Vorschaltseiten)
+      var host = (document.referrer || "").replace(/^https?:\/\//, "").split("/")[0];
+      var ausSuche = /(^|\.)(google|bing|duckduckgo|ecosia|yahoo|startpage|qwant)\./i.test(host);
+      var roboter = /bot|crawl|spider|lighthouse|pagespeed/i.test(navigator.userAgent);
+      if (!ausSuche && !roboter && !document.documentElement.classList.contains("pt-cover")) document.documentElement.classList.add("wl-show");
     }
   } catch (e) {}
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Impressum – Facility Pro Solution</title>
-<meta name="description" content="Impressum von Facility Pro Solution, Bremerhaven.">
+<title>Impressum | Facility Pro Solution Bremerhaven</title>
+<meta name="description" content="Impressum von Facility Pro Solution, Krummenacker 4, 27572 Bremerhaven.">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#020d17">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Facility Pro Solution">
+<meta property="og:title" content="Impressum | Facility Pro Solution Bremerhaven">
+<meta property="og:description" content="Impressum von Facility Pro Solution, Krummenacker 4, 27572 Bremerhaven.">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
@@ -34,8 +47,8 @@
 
 <div class="wl" role="dialog" aria-modal="true" aria-label="Willkommen">
   <div class="wl-box">
-    <img class="wl-logo" src="logo.jpg" alt="" width="210" height="210">
-    <h2>Herzlich <span>willkommen</span></h2>
+    <img class="wl-logo" src="logo-512.jpg" alt="" width="210" height="210">
+    <div class="wl-title">Herzlich <span>willkommen</span></div>
     <p>bei <b>Facility Pro Solution</b><br>Sauber. Zuverlässig. Flexibel.</p>
     <p class="wl-hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>Für den Ton einmal tippen oder klicken</p>
   </div>
@@ -44,13 +57,13 @@
 
 <div class="pt" aria-hidden="true">
   <div class="pt-panel"><i class="pt-edge pt-edge-r"></i><i class="pt-edge pt-edge-l"></i></div>
-  <div class="pt-mark"><span class="pt-ring"></span><img class="pt-logo" src="logo.jpg" alt=""></div>
+  <div class="pt-mark"><span class="pt-ring"></span><img class="pt-logo" src="logo-512.jpg" alt=""></div>
 </div>
 
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="index.html" aria-label="Facility Pro Solution – Startseite">
-      <img src="logo.jpg" alt="">
+      <img src="logo-512.jpg" alt="">
       <span>FACILITY <b>PRO SOLUTION</b></span>
     </a>
     <nav class="site-nav" aria-label="Hauptnavigation">
@@ -67,13 +80,13 @@
 <main>
   <div class="page">
     <div class="wrap">
-      <h2>Impressum</h2>
+      <h1>Impressum</h1>
       <p class="sub">Angaben gemäß § 5 DDG</p>
       <div class="legal">
         <h3>Anbieter</h3>
         <p>Facility Pro Solution<br>Krummenacker 4<br>27572 Bremerhaven</p>
         <h3>Vertretungsberechtigte Person</h3>
-        <p>Sezgin Celik</p>
+        <p>[Name ergänzen]</p>
         <h3>Kontakt</h3>
         <p>Telefon: 0174 / 6395289<br>E-Mail: facility.pro.solution@gmx.de</p>
         <h3>Steuerliche Angaben</h3>
