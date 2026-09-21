@@ -450,8 +450,8 @@ html.wl-show.wl-closing .wl { animation: wl-out .6s ease forwards; }
   box-shadow: 0 0 0 1px #071a2b, 0 20px 60px -18px rgba(14, 165, 239, .6);
   animation: wl-pop .55s cubic-bezier(.2, .8, .2, 1) both, wl-glow 2.4s 1s ease-in-out infinite;
 }
-.wl h2 { margin: 0 0 .6rem; font-size: clamp(2.2rem, 8.5vw, 3.7rem); line-height: 1.08; animation: wl-up .5s .12s both; }
-.wl h2 span { color: var(--accent-strong); }
+.wl-title { display: block; font-weight: 800; letter-spacing: -.02em; margin: 0 0 .6rem; font-size: clamp(2.2rem, 8.5vw, 3.7rem); line-height: 1.08; animation: wl-up .5s .12s both; }
+.wl-title span { color: var(--accent-strong); }
 .wl p { margin: 0; color: var(--muted); font-size: 1.05rem; animation: wl-up .5s .25s both; }
 .wl p b { color: var(--accent-strong); font-weight: 700; }
 
@@ -475,7 +475,7 @@ html.wl-show.wl-closing .wl { animation: wl-out .6s ease forwards; }
 .snd.is-muted .off { display: block; }
 
 @media (prefers-reduced-motion: reduce) {
-  .wl-logo, .wl h2, .wl p, .wl-actions { animation: none; }
+  .wl-logo, .wl-title, .wl p, .wl-actions { animation: none; }
   html.wl-show.wl-closing .wl { animation: none; opacity: 0; }
 }
 
@@ -496,3 +496,8 @@ html.wl-show.wl-closing .wl { animation: wl-out .6s ease forwards; }
 @media (prefers-reduced-motion: reduce) { .wl-bar { animation: none; } }
 
 .wl.wl-playing .wl-hint { display: none; }   /* Ton läuft schon – kein Hinweis nötig */
+
+/* Überschriften für Suchmaschinen: h1 auf Unterseiten wie bisher gestaltet, Marke in der Startseiten-h1 */
+.page h1 { margin: 0 0 .5rem; font-size: clamp(1.9rem, 4.4vw, 2.5rem); line-height: 1.15; font-weight: 800; letter-spacing: -.01em; }
+h1 .eyebrow { display: block; margin: 0 0 .6rem; font-size: .75rem; line-height: 1.4; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+@media (max-width: 620px) { h1 .eyebrow { font-size: .82rem; } }
