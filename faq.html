@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<script>
+  // Kam der Besucher per Seitenwechsel-Wisch? Dann Seite zunächst zugedeckt lassen.
+  (function () {
+    var wisch = false;
+    try { wisch = sessionStorage.getItem("pt") === "1"; sessionStorage.removeItem("pt"); } catch (e) {}
+    try { if (window.name === "pt") { wisch = true; window.name = ""; } } catch (e) {}
+    if (wisch) document.documentElement.classList.add("pt-cover");
+  })();
+</script>
+<script>
+  // Erster Besuch in dieser Sitzung? Dann Willkommens-Bildschirm zeigen (nicht nach einem Seitenwechsel-Wisch).
+  try {
+    if (!sessionStorage.getItem("wl")) {
+      sessionStorage.setItem("wl", "1");
+      // Kein Willkommens-Bildschirm für Besucher direkt aus der Suche und für Suchmaschinen-Roboter (Google mag keine Vorschaltseiten)
+      var host = (document.referrer || "").replace(/^https?:\/\//, "").split("/")[0];
+      var ausSuche = /(^|\.)(google|bing|duckduckgo|ecosia|yahoo|startpage|qwant)\./i.test(host);
+      var roboter = /bot|crawl|spider|lighthouse|pagespeed/i.test(navigator.userAgent);
+      if (!ausSuche && !roboter && !document.documentElement.classList.contains("pt-cover")) document.documentElement.classList.add("wl-show");
+    }
+  } catch (e) {}
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Häufige Fragen (FAQ) | Facility Pro Solution Bremerhaven</title>
+<meta name="description" content="Antworten auf häufige Fragen zu Gebäudereinigung, Bodenverlegung sowie Hausmeister- und Montagearbeiten von Facility Pro Solution in Bremerhaven.">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#020d17">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Facility Pro Solution">
+<meta property="og:title" content="Häufige Fragen (FAQ) | Facility Pro Solution Bremerhaven">
+<meta property="og:description" content="Antworten auf häufige Fragen zu Gebäudereinigung, Bodenverlegung sowie Hausmeister- und Montagearbeiten von Facility Pro Solution in Bremerhaven.">
+<link rel="canonical" href="https://taskiransal.github.io/Facility-Pro-Solution/faq.html">
+<meta property="og:url" content="https://taskiransal.github.io/Facility-Pro-Solution/faq.html">
+<meta property="og:image" content="https://taskiransal.github.io/Facility-Pro-Solution/logo.jpg">
+<meta property="og:image:alt" content="Logo Facility Pro Solution – Sauber. Zuverlässig. Flexibel.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Welche Leistungen bietet Facility Pro Solution an?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Wir bieten Gebäudereinigung (u. a. Wohnungen, Büros, Treppenhäuser, Arztpraxen), Bodenverlegung (Laminat, Vinyl, Teppichboden, PVC) sowie Hausmeister- und Montagearbeiten (z. B. Küchen- und Schrankmontage, kleinere Instandhaltungsarbeiten) an." }
+    },
+    {
+      "@type": "Question",
+      "name": "In welchem Gebiet sind Sie tätig?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Wir sind in Bremerhaven und der näheren Umgebung im Einsatz. Bei Fragen zu Ihrem konkreten Standort sprechen Sie uns einfach an." }
+    },
+    {
+      "@type": "Question",
+      "name": "Arbeiten Sie auch für Privatkunden oder nur gewerblich?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Beides: Wir übernehmen Aufträge für Privathaushalte ebenso wie für Büros, Praxen, Kanzleien und andere gewerbliche Kunden." }
+    },
+    {
+      "@type": "Question",
+      "name": "Wie erhalte ich ein Angebot?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Am einfachsten über das Kontaktformular, per WhatsApp, E-Mail oder telefonisch. Schildern Sie uns kurz Objekt, Ort und gewünschten Termin – wir melden uns schnellstmöglich mit einem Angebot." }
+    },
+    {
+      "@type": "Question",
+      "name": "Was kostet eine Gebäudereinigung oder Bodenverlegung?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Das hängt stark von Fläche, Zustand und gewünschtem Leistungsumfang ab. Nach einer kurzen Beschreibung oder Besichtigung erhalten Sie ein individuelles, unverbindliches Angebot." }
+    },
+    {
+      "@type": "Question",
+      "name": "Wie schnell können Sie einen Termin anbieten?",
+      "acceptedAnswer": { "@type": "Answer", "text": "In der Regel sehr kurzfristig, da wir als neu gegründetes Unternehmen flexibel planen können. Den genauen Termin stimmen wir individuell mit Ihnen ab." }
+    },
+    {
+      "@type": "Question",
+      "name": "Bringen Sie Ihre eigene Ausrüstung und Reinigungsmittel mit?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Ja, wir bringen unser eigenes Equipment und geeignete Reinigungsmittel mit. Besondere Wünsche oder Vorgaben (z. B. bestimmte Produkte) besprechen wir gerne vorab." }
+    },
+    {
+      "@type": "Question",
+      "name": "Bieten Sie auch regelmäßige, wiederkehrende Reinigung an?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Ja, neben Einzelaufträgen übernehmen wir auch regelmäßige Reinigungen, zum Beispiel für Treppenhäuser, Büros oder Gemeinschaftsflächen, nach einem gemeinsam festgelegten Rhythmus." }
+    },
+    {
+      "@type": "Question",
+      "name": "Wie kann ich Sie am schnellsten erreichen?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Am schnellsten telefonisch oder per WhatsApp unter 0174 / 6395289. Alternativ erreichen Sie uns per E-Mail an facility.pro.solution@gmx.de oder über das Kontaktformular." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="wl" role="dialog" aria-modal="true" aria-label="Willkommen">
+  <div class="wl-box">
+    <img class="wl-logo" src="logo-512.jpg" alt="" width="210" height="210">
+    <div class="wl-title">Herzlich <span>willkommen</span></div>
+    <p>bei <b>Facility Pro Solution</b><br>Sauber. Zuverlässig. Flexibel.</p>
+    <p class="wl-hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>Für den Ton einmal tippen oder klicken</p>
+  </div>
+  <i class="wl-bar"></i>
+</div>
+
+<div class="pt" aria-hidden="true">
+  <div class="pt-panel"><i class="pt-edge pt-edge-r"></i><i class="pt-edge pt-edge-l"></i></div>
+  <div class="pt-mark"><span class="pt-ring"></span><img class="pt-logo" src="logo-512.jpg" alt=""></div>
+</div>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Facility Pro Solution – Startseite">
+      <img src="logo-512.jpg" alt="">
+      <span>FACILITY <b>PRO SOLUTION</b></span>
+    </a>
+    <nav class="site-nav" aria-label="Hauptnavigation">
+      <ul>
+        <li><a href="leistungen.html">Leistungen</a></li>
+        <li><a href="ueber-uns.html">Über uns</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+        <li><a href="faq.html" aria-current="page">FAQ</a></li>
+        <li><a href="impressum.html">Impressum</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="page">
+    <div class="wrap">
+      <h1>Häufige Fragen</h1>
+      <p class="sub">Antworten auf die wichtigsten Fragen rund um unsere Leistungen. Ist Ihre Frage nicht dabei? <a href="kontakt.html">Schreiben Sie uns einfach.</a></p>
+
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>Welche Leistungen bietet Facility Pro Solution an?<span class="faq-icon">+</span></summary>
+          <p class="faq-a">Wir bieten Gebäudereinigung (u.&nbsp;a. Wohnungen, Büros, Treppenhäuser, Arztpraxen), Bodenverlegung (Laminat, Vinyl, Teppichboden, PVC) sowie Hausmeister- und Montagearbeiten wie Küchen- und Schrankmontage oder kleinere Instandhaltungsarbeiten an. Einen Überblick finden Sie auf der Seite <a href="leistungen.html">Leistungen</a>.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>In welchem Gebiet sind Sie tätig?<span class="faq-icon">+</span></summary>
+          <p class="faq-a">Wir sind in Bremerhaven und der näheren Umgebung im Einsatz. Bei Fragen zu Ihrem konkreten Standort sprechen Sie uns einfach an.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Arbeiten Sie auch für Privatkunden oder nur gewerblich?<span class="faq-icon">+</span></summary>
+          <p class="faq-a">Beides: Wir übernehmen Aufträge für Privathaushalte ebenso wie für Büros, Praxen, Kanzleien und andere gewerbliche Kunden.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Wie erhalte ich ein Angebot?<span class="faq-icon">+</span></summary>
+          <p class="faq-a">Am einfachsten über unser <a href="kontakt.html">Kontaktformular</a>, per WhatsApp, E-Mail oder telefonisch. Schildern Sie uns kurz Objekt, Ort und gewünschten Termin – wir melden uns schnellstmöglich mit einem Angebot.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Was kostet eine Gebäudereinigung oder Bodenverlegung?<span class="faq-icon">+</span></summary>
+          <p class="faq-a">Das hängt stark von Fläche, Zustand und gewünschtem Leistungsumfang ab. Nach einer kurzen Beschreibung oder Besichtigung erhalten Sie ein individuelles, unverbindliches Angebot.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Wie schnell können Sie einen Termin anbieten?<span class="faq-icon">+</span></summary>
+          <p class="faq-a">In der Regel sehr kurzfristig, da wir als neu gegründetes Unternehmen flexibel planen können. Den genauen Termin stimmen wir individuell mit Ihnen ab.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Bringen Sie Ihre eigene Ausrüstung und Reinigungsmittel mit?<span class="faq-icon">+</span></summary>
+          <p class="faq-a">Ja, wir bringen unser eigenes Equipment und geeignete Reinigungsmittel mit. Besondere Wünsche oder Vorgaben, zum Beispiel bestimmte Produkte, besprechen wir gerne vorab.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Bieten Sie auch regelmäßige, wiederkehrende Reinigung an?<span class="faq-icon">+</span></summary>
+          <p class="faq-a">Ja, neben Einzelaufträgen übernehmen wir auch regelmäßige Reinigungen, zum Beispiel für Treppenhäuser, Büros oder Gemeinschaftsflächen, nach einem gemeinsam festgelegten Rhythmus.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Wie kann ich Sie am schnellsten erreichen?<span class="faq-icon">+</span></summary>
+          <p class="faq-a">Am schnellsten telefonisch oder per WhatsApp unter <a href="tel:+491746395289">0174 / 6395289</a>. Alternativ erreichen Sie uns per E-Mail an <a href="mailto:facility.pro.solution@gmx.de">facility.pro.solution@gmx.de</a> oder über das <a href="kontakt.html">Kontaktformular</a>.</p>
+        </details>
+      </div>
+
+      <div class="page-cta"><a class="btn" href="kontakt.html">Jetzt Anfrage senden</a></div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 Facility Pro Solution · Bremerhaven</span>
+    <a href="impressum.html">Impressum</a>
+  </div>
+</footer>
+
+<script src="welcome.js" defer></script>
+<script src="transitions.js" defer></script>
+</body>
+</html>
